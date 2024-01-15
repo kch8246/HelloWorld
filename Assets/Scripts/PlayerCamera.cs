@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Texture2D texAimCursor = null;
+
+
+    private void Update()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnGUI()
     {
-        
+        Vector3 mousePos = Input.mousePosition;
+        GUI.DrawTexture(new Rect(mousePos.x - 32, Screen.height - mousePos.y - 32, 64, 64), texAimCursor);
     }
 }
