@@ -10,6 +10,14 @@ public class EnemyManager : MonoBehaviour
     private List<Enemy> enemyList = new List<Enemy>();
     private int maxEnemyCnt = 10;
 
+    private UIManager uiMng = null;
+    private int killCount = 0;
+
+
+    private void Awake()
+    {
+        uiMng = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+    }
 
     private void Start()
     {
@@ -34,6 +42,8 @@ public class EnemyManager : MonoBehaviour
 
             enemyList.Add(enemy);
 
+            uiMng.UpdateKillCount(killCount, enemyList.Count, maxEnemyCnt);
+
             yield return new WaitForSeconds(1f);
         }
     }
@@ -41,5 +51,8 @@ public class EnemyManager : MonoBehaviour
     private void EnemyDiedCallback(Enemy _enemy)
     {
         enemyList.Remove(_enemy);
+
+        ++killCount;
+        uiMng.UpdateKillCount(killCount, enemyList.Count, maxEnemyCnt);
     }
 }
