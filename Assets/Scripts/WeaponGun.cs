@@ -7,6 +7,10 @@ using UnityEngine;
 // Frustum Culling / Occllusion Culling
 public class WeaponGun : Weapon
 {
+    public delegate void ReloadDoneCallbackDelegate();
+    private ReloadDoneCallbackDelegate reloadDoneCallback = null;
+    public ReloadDoneCallbackDelegate ReloadDoneCallback { set { reloadDoneCallback = value; } }
+
     [SerializeField]
     private Transform bulletSpawnPointTr = null;
 
@@ -15,10 +19,15 @@ public class WeaponGun : Weapon
     private readonly float cooltime = 0.5f;
     private float lastTime = 0f;
 
+    private const int maxBulletCnt = 10;    // ÃÖ´ë ÃÑ¾Ë °¹¼ö
+    private int bulletCnt = maxBulletCnt;   // ÃÑ¾Ë °¹¼ö
+    private float reloadTime = 2f;          // ÀçÀåÀü ½Ã°£
+    public int BulletCnt { get { return bulletCnt; } }
+
     // Overriding / Overloading
     public override void Use()
     {
-        Fire();
+        if (CheckAvailable()) Fire();
     }
 
     private void Fire(int _i) { }
@@ -39,11 +48,29 @@ public class WeaponGun : Weapon
             bulletSpawnPointTr.forward);
 
         lastTime = Time.time;
+
+        --bulletCnt;
     }
 
     protected void SetBullet(GameObject _bulletGo)
     {
         projectileGo = _bulletGo;
+    }
+
+    public bool CheckAvailable()
+    {
+        return bulletCnt > 0;
+    }
+
+    public void Reload()
+    {
+        Invoke("ReloadDone", reloadTime);
+    }
+
+    private void ReloadDone()
+    {
+        bulletCnt = maxBulletCnt;
+        reloadDoneCallback?.Invoke();
     }
 
     //private void Update()

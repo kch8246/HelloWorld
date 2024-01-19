@@ -18,7 +18,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Transform shoulderTr = null;
     [SerializeField] private Transform weaponHolderTr = null;
-    private Weapon weapon = null;
+    private WeaponGun weaponGun = null;
+
+    private UIManager uiMng = null;
 
 
     private void OnEnable() {}
@@ -28,6 +30,8 @@ public class PlayerController : MonoBehaviour
     {
         playerCam = GetComponentInChildren<PlayerCamera>();
         //weapon = GetComponentInChildren<Weapon>();
+
+        uiMng = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
     }
 
     private void Update()
@@ -78,6 +82,11 @@ public class PlayerController : MonoBehaviour
         //{
         //    transform.Rotate(Vector3.up, 1f);
         //}
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            if (weaponGun) weaponGun.Reload();
+        }
     }
 
     private void MouseInputProcess()
@@ -103,7 +112,14 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (weapon != null) weapon.Use();
+            if (weaponGun != null)
+            {
+                if (weaponGun.CheckAvailable())
+                {
+                    weaponGun.Use();
+                    uiMng.UpdateBulletCount(weaponGun.BulletCnt);
+                }
+            }
         }
     }
 
@@ -111,7 +127,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_other.CompareTag("Weapon"))
         {
-            if (weapon) DropWeapon();
+            if (weaponGun) DropWeapon();
             GetWeapon(_other.gameObject);
         }
     }
@@ -122,14 +138,24 @@ public class PlayerController : MonoBehaviour
         _weaponGo.transform.localPosition = Vector3.zero;
         _weaponGo.transform.localRotation = Quaternion.identity;
 
-        weapon = _weaponGo.GetComponent<Weapon>();
+        // 지금은 총 밖에 없어서 이런식으로 처리되지만
+        // 무기 종류가 다양해지면 획득한 무기에 따라 처리해야 할 수도 있음.
+        weaponGun = _weaponGo.GetComponent<WeaponGun>();
+        weaponGun.ReloadDoneCallback = ReloadDoneCallback;
+
+        uiMng.UpdateBulletCount(weaponGun.BulletCnt);
+    }
+
+    private void ReloadDoneCallback()
+    {
+        uiMng.UpdateBulletCount(weaponGun.BulletCnt);
     }
 
     private void DropWeapon()
     {
-        if (weapon == null) return;
+        if (weaponGun == null) return;
 
-        Transform dropWeaponTr = weapon.transform;
+        Transform dropWeaponTr = weaponGun.transform;
         dropWeaponTr.transform.SetParent(null);
 
         float angle = Random.Range(0f, 360f);
