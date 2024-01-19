@@ -12,6 +12,8 @@ public class WeaponGun : Weapon
 
     private GameObject projectileGo = null;
 
+    private readonly float cooltime = 0.5f;
+    private float lastTime = 0f;
 
     // Overriding / Overloading
     public override void Use()
@@ -27,12 +29,16 @@ public class WeaponGun : Weapon
     {
         if (projectileGo == null) return;
 
+        if (Time.time - lastTime < cooltime) return;
+
         GameObject projectile =
             Instantiate(projectileGo);
         projectile.transform.position =
             bulletSpawnPointTr.position;
         projectile.GetComponent<Projectile>().Shoot(
             bulletSpawnPointTr.forward);
+
+        lastTime = Time.time;
     }
 
     protected void SetBullet(GameObject _bulletGo)

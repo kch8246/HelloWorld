@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private PlayerCamera playerCam = null;
 
     private float moveSpeed = 10f;
+    private float sprintSpeed = 20f;
 
     private float mouseX = 0f;
     private float mouseY = 0f;
@@ -37,33 +38,35 @@ public class PlayerController : MonoBehaviour
 
     private void KeyboardInputProcess()
     {
+        float speed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
+
         if (Input.GetKey(KeyCode.W))
         {
             //transform.position =
             //    transform.position +
-            //    transform.forward * moveSpeed * Time.deltaTime;
+            //    transform.forward * speed * Time.deltaTime;
 
             transform.Translate(
-                Vector3.forward * moveSpeed * Time.deltaTime);
+                Vector3.forward * speed * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.S))
         {
             transform.position =
                 transform.position +
-                -transform.forward * moveSpeed * Time.deltaTime;
+                -transform.forward * speed * Time.deltaTime;
         }
 
         if (Input.GetKey(KeyCode.A))
         {
             transform.Translate(
-                Vector3.left * moveSpeed * Time.deltaTime);
+                Vector3.left * speed * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
             transform.Translate(
-                Vector3.right * moveSpeed * Time.deltaTime);
+                Vector3.right * speed * Time.deltaTime);
         }
 
         //if (Input.GetKey(KeyCode.Q))
