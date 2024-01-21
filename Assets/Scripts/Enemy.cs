@@ -37,7 +37,8 @@ public class Enemy : MonoBehaviour
     {
         if (!targetGo) return;
 
-        Vector3 dir = targetGo.transform.position - transform.position;
+        Vector3 dir = (targetGo.transform.position - transform.position).normalized;
+        // Radian, Degree
         float angle = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg;
         transform.rotation =
             Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, 90f + -angle, 0f), rotSpeed * Time.deltaTime);
@@ -60,7 +61,7 @@ public class Enemy : MonoBehaviour
 
         if (Vector3.Distance(targetGo.transform.position, transform.position) < atkRange)
         {
-            if (weapon) weapon.Use();
+            if (weapon) weapon.Use(this.gameObject);
         }
     }
 

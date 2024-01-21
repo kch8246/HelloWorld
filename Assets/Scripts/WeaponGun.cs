@@ -25,16 +25,17 @@ public class WeaponGun : Weapon
     public int BulletCnt { get { return bulletCnt; } }
 
     // Overriding / Overloading
-    public override void Use()
+    public override void Use(GameObject _ownerGo)
     {
-        if (CheckAvailable()) Fire();
+        if (CheckAvailable())
+            Fire(_ownerGo);
     }
 
     private void Fire(int _i) { }
     private void Fire(float _f) { }
     private void Fire(int _i1, int _i2) { }
 
-    private void Fire()
+    private void Fire(GameObject _ownerGo)
     {
         if (projectileGo == null) return;
 
@@ -45,7 +46,8 @@ public class WeaponGun : Weapon
         projectile.transform.position =
             bulletSpawnPointTr.position;
         projectile.GetComponent<Projectile>().Shoot(
-            bulletSpawnPointTr.forward);
+            bulletSpawnPointTr.forward,
+            _ownerGo);
 
         lastTime = Time.time;
 

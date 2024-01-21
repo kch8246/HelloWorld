@@ -7,7 +7,7 @@ public abstract class Weapon : MonoBehaviour
 {
     private float damage = 0f;
 
-    public abstract void Use();
+    public abstract void Use(GameObject _ownerGo);
     // 가상함수
     //public virtual void VirtualTest() { }
     // 순수가상함수

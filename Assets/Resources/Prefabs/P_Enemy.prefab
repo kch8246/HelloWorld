@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999117752230220025}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9009174285962568514}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3978948939416154428
 MeshFilter:
@@ -108,7 +108,6 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1094546193633219089}
-  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.5}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
@@ -116,6 +115,7 @@ Transform:
   m_Children:
   - {fileID: 5448420598887455977}
   m_Father: {fileID: 4297865309843581801}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3108141813255903981
 MeshFilter:
@@ -193,7 +193,6 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5111389620200735327}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -201,6 +200,7 @@ Transform:
   m_Children:
   - {fileID: 9009174285962568514}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &8832850122173701780
 Rigidbody:
@@ -209,21 +209,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5111389620200735327}
-  serializedVersion: 4
+  serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -249,17 +238,9 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5111389620200735327}
   m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &5410263136791431509
@@ -285,7 +266,6 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5410263136791431509}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -293,6 +273,7 @@ Transform:
   m_Children:
   - {fileID: 8750552430849874551}
   m_Father: {fileID: 6221801872349890135}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7440144725479305520
 GameObject:
@@ -317,7 +298,6 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7440144725479305520}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.7, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -325,6 +305,7 @@ Transform:
   m_Children:
   - {fileID: 6221801872349890135}
   m_Father: {fileID: 9009174285962568514}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7986331118840433636
 GameObject:
@@ -349,7 +330,6 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7986331118840433636}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -358,13 +338,13 @@ Transform:
   - {fileID: 1411882113873385871}
   - {fileID: 4297865309843581801}
   m_Father: {fileID: 385099024634051076}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5629963784752222271
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 3
     m_TransformParent: {fileID: 5448420598887455977}
     m_Modifications:
     - target: {fileID: 3986128949725137480, guid: b35417a23cb1e0f4db7cd795e1526214, type: 3}
@@ -419,11 +399,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_WeaponGunRed
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    - target: {fileID: 3986128949725137481, guid: b35417a23cb1e0f4db7cd795e1526214, type: 3}
+      propertyPath: m_TagString
+      value: Weapon
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8194856016541264978, guid: b35417a23cb1e0f4db7cd795e1526214, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b35417a23cb1e0f4db7cd795e1526214, type: 3}
+--- !u!4 &5629963784326794769 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1734647342, guid: b35417a23cb1e0f4db7cd795e1526214, type: 3}
+  m_PrefabInstance: {fileID: 5629963784752222271}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8750552430849874550 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3986128949725137481, guid: b35417a23cb1e0f4db7cd795e1526214, type: 3}
+  m_PrefabInstance: {fileID: 5629963784752222271}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6759402509603167216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8750552430849874550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b60caec852e34b04eaa87390c36f6d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpawnPointTr: {fileID: 5629963784326794769}
 --- !u!4 &8750552430849874551 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3986128949725137480, guid: b35417a23cb1e0f4db7cd795e1526214, type: 3}

@@ -28,21 +28,22 @@ public class EnemyManager : MonoBehaviour
     {
         while (true)
         {
-            if (enemyList.Count > maxEnemyCnt) yield return null;
+            if (enemyList.Count < maxEnemyCnt)
+            {
+                GameObject go = Instantiate(
+                    enemyGo,
+                    new Vector3(Random.Range(stageSize.x * -0.5f, stageSize.x * 0.5f),
+                                0f,
+                                Random.Range(stageSize.y * -0.5f, stageSize.y * 0.5f)),
+                    Quaternion.identity);
 
-            GameObject go = Instantiate(
-                enemyGo,
-                new Vector3(Random.Range(stageSize.x * -0.5f, stageSize.x * 0.5f),
-                            0f,
-                            Random.Range(stageSize.y * -0.5f, stageSize.y * 0.5f)),
-                Quaternion.identity);
+                Enemy enemy = go.GetComponent<Enemy>();
+                enemy.DiedCallback = EnemyDiedCallback;
 
-            Enemy enemy = go.GetComponent<Enemy>();
-            enemy.DiedCallback = EnemyDiedCallback;
+                enemyList.Add(enemy);
 
-            enemyList.Add(enemy);
-
-            uiMng.UpdateKillCount(killCount, enemyList.Count, maxEnemyCnt);
+                uiMng.UpdateKillCount(killCount, enemyList.Count, maxEnemyCnt);
+            }
 
             yield return new WaitForSeconds(1f);
         }

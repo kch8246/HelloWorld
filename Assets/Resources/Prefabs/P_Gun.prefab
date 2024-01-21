@@ -41,10 +41,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3986128949725137480}
   - component: {fileID: 3986128949725137495}
-  - component: {fileID: 7778495228722468340}
+  - component: {fileID: 8194856016541264978}
   m_Layer: 0
-  m_Name: P_WeaponGunBlue
-  m_TagString: Weapon
+  m_Name: P_Gun
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,12 +75,12 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3986128949725137481}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.2, z: 0.2}
   m_Center: {x: 0, y: 0.1, z: 0.05}
---- !u!114 &7778495228722468340
+--- !u!114 &8194856016541264978
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,10 +89,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3986128949725137481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b63936dd1c81d34995c38b39faff268, type: 3}
+  m_Script: {fileID: 11500000, guid: 646ad71737899be49b89a86e933a2497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpawnPointTr: {fileID: 1734647342}
+  bulletSpawnPointTr: {fileID: 0}
 --- !u!1 &3986128949787470250
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,7 +237,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d6478a87ba7c8ce4c9607de56d801c96, type: 2}
+  - {fileID: 2100000, guid: c63a82f3afb7ee147b990d7f899c696f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

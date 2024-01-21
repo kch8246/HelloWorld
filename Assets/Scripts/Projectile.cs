@@ -11,10 +11,13 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     private GameObject fxHitGo = null;
 
+    private GameObject ownerGo = null;
 
-    public void Shoot(Vector3 _dir)
+
+    public void Shoot(Vector3 _dir, GameObject _ownerGo)
     {
         dir = _dir;
+        ownerGo = _ownerGo;
     }
 
     private void Update()
@@ -28,14 +31,16 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider _other)
     {
-        if (!_other.CompareTag("Player") && !_other.CompareTag("Weapon"))
-        {
-            if (fxHitGo != null) Instantiate(fxHitGo, transform.position, Quaternion.identity);
+        if (ownerGo.CompareTag(_other.tag) ||
+            _other.CompareTag("Weapon") ||
+            _other.CompareTag("Projectile")) return;
 
-            if (_other.CompareTag("Enemy"))
-                _other.GetComponent<Enemy>().Damage(dmg);
+        if (fxHitGo != null) Instantiate(fxHitGo, transform.position, Quaternion.identity);
 
-            Destroy(gameObject);
-        }
+        if (_other.CompareTag("Enemy"))
+            _other.GetComponent<Enemy>().Damage(dmg);
+        // 플레이어 데미지 처리
+
+        Destroy(gameObject);
     }
 }

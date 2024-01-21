@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
 
     private UIManager uiMng = null;
 
+    private CharacterController characterController = null;
+
 
     private void OnEnable() {}
     private void Start() {}
@@ -32,6 +34,9 @@ public class PlayerController : MonoBehaviour
         //weapon = GetComponentInChildren<Weapon>();
 
         uiMng = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+
+        characterController =
+            GetComponent<CharacterController>();
     }
 
     private void Update()
@@ -44,34 +49,46 @@ public class PlayerController : MonoBehaviour
     {
         float speed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
 
+        Vector3 moveDir = Vector3.zero;
+
         if (Input.GetKey(KeyCode.W))
         {
             //transform.position =
             //    transform.position +
             //    transform.forward * speed * Time.deltaTime;
 
-            transform.Translate(
-                Vector3.forward * speed * Time.deltaTime);
+            //transform.Translate(
+            //    Vector3.forward * speed * Time.deltaTime);
+            moveDir += transform.forward;
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position =
-                transform.position +
-                -transform.forward * speed * Time.deltaTime;
+            //transform.position =
+            //    transform.position +
+            //    -transform.forward * speed * Time.deltaTime;
+            moveDir += -transform.forward;
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Translate(
-                Vector3.left * speed * Time.deltaTime);
+            //transform.Translate(
+            //    Vector3.left * speed * Time.deltaTime);
+            moveDir += -transform.right;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Translate(
-                Vector3.right * speed * Time.deltaTime);
+            //transform.Translate(
+            //    Vector3.right * speed * Time.deltaTime);
+            moveDir += transform.right;
         }
+
+        characterController.Move(
+            moveDir.normalized *
+            speed *
+            Time.deltaTime);
+
 
         //if (Input.GetKey(KeyCode.Q))
         //{
@@ -116,7 +133,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (weaponGun.CheckAvailable())
                 {
-                    weaponGun.Use();
+                    weaponGun.Use(this.gameObject);
                     uiMng.UpdateBulletCount(weaponGun.BulletCnt);
                 }
             }
