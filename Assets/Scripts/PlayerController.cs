@@ -49,40 +49,43 @@ public class PlayerController : MonoBehaviour
     {
         float speed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
 
-        Vector3 moveDir = Vector3.zero;
+        //Vector3 moveDir = Vector3.zero;
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            //transform.position =
-            //    transform.position +
-            //    transform.forward * speed * Time.deltaTime;
+        //if (Input.GetKey(KeyCode.W))
+        //{
+        //    //transform.position =
+        //    //    transform.position +
+        //    //    transform.forward * speed * Time.deltaTime;
 
-            //transform.Translate(
-            //    Vector3.forward * speed * Time.deltaTime);
-            moveDir += transform.forward;
-        }
+        //    //transform.Translate(
+        //    //    Vector3.forward * speed * Time.deltaTime);
+        //    moveDir += transform.forward;
+        //}
 
-        if (Input.GetKey(KeyCode.S))
-        {
-            //transform.position =
-            //    transform.position +
-            //    -transform.forward * speed * Time.deltaTime;
-            moveDir += -transform.forward;
-        }
+        //if (Input.GetKey(KeyCode.S))
+        //{
+        //    //transform.position =
+        //    //    transform.position +
+        //    //    -transform.forward * speed * Time.deltaTime;
+        //    moveDir += -transform.forward;
+        //}
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            //transform.Translate(
-            //    Vector3.left * speed * Time.deltaTime);
-            moveDir += -transform.right;
-        }
+        //if (Input.GetKey(KeyCode.A))
+        //{
+        //    //transform.Translate(
+        //    //    Vector3.left * speed * Time.deltaTime);
+        //    moveDir += -transform.right;
+        //}
 
-        if (Input.GetKey(KeyCode.D))
-        {
-            //transform.Translate(
-            //    Vector3.right * speed * Time.deltaTime);
-            moveDir += transform.right;
-        }
+        //if (Input.GetKey(KeyCode.D))
+        //{
+        //    //transform.Translate(
+        //    //    Vector3.right * speed * Time.deltaTime);
+        //    moveDir += transform.right;
+        //}
+
+        Vector3 moveDir = (transform.forward * Input.GetAxis("Vertical")) +
+                  (transform.right * Input.GetAxis("Horizontal"));
 
         characterController.Move(
             moveDir.normalized *
@@ -100,6 +103,7 @@ public class PlayerController : MonoBehaviour
         //    transform.Rotate(Vector3.up, 1f);
         //}
 
+
         if (Input.GetKey(KeyCode.R))
         {
             if (weaponGun) weaponGun.Reload();
@@ -116,7 +120,6 @@ public class PlayerController : MonoBehaviour
 
         Camera cam = Camera.main;
         // Pitch, Yaw, Roll
-        // TODO: 피치회전 제한 처리
         cam.transform.localEulerAngles =
             new Vector3(-mouseY, 0f, 0f);
         transform.localEulerAngles =
