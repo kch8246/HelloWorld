@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     private Vector3 dir = Vector3.zero;
     private float speed = 20f;
     private float dmg = 1f;
+    private float duration = 5f;
 
     [SerializeField]
     private GameObject fxHitGo = null;
@@ -18,6 +19,8 @@ public class Projectile : MonoBehaviour
     {
         dir = _dir;
         ownerGo = _ownerGo;
+
+        Destroy(gameObject, duration);
     }
 
     private void Update()
@@ -31,6 +34,8 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider _other)
     {
+        if (ownerGo == null) return;
+
         if (ownerGo.CompareTag(_other.tag) ||
             _other.CompareTag("Weapon") ||
             _other.CompareTag("Projectile")) return;

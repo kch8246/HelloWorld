@@ -173,13 +173,13 @@ public class PlayerController : MonoBehaviour
         if (weaponGun == null) return;
 
         Transform dropWeaponTr = weaponGun.transform;
-        dropWeaponTr.transform.SetParent(null);
+        dropWeaponTr.SetParent(null);
 
         float angle = Random.Range(0f, 360f);
         float dist = 5f;
         Vector3 dropPos =
             transform.position +
-            new Vector3(Mathf.Cos(angle) * dist, 0f, Mathf.Sin(angle) * dist);
+            new Vector3(Mathf.Cos(angle) * dist, 1f, Mathf.Sin(angle) * dist);
         dropWeaponTr.position = dropPos;
     }
 }

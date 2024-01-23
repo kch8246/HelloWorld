@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -8,8 +9,10 @@ public class Enemy : MonoBehaviour
     private DiedCallbackDelegate diedCallback = null;
     public DiedCallbackDelegate DiedCallback { set { diedCallback = value; } }
 
-    private Weapon weapon = null;
+    private WeaponGun weaponGun = null;
     private GameObject targetGo = null;
+    //private CharacterController characterController = null;
+    private NavMeshAgent agent = null;
 
     private float hp = 3f;
     private float atkRange = 10f;   // 공격 가능 거리
@@ -20,16 +23,20 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        weapon = GetComponentInChildren<Weapon>();
+        weaponGun = GetComponentInChildren<WeaponGun>();
 
         targetGo = GameObject.FindGameObjectWithTag("Player");
         if (!targetGo) Debug.LogError("Player not found!");
+
+        //characterController = GetComponent<CharacterController>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     private void Update()
     {
-        LookAtTarget();
-        ChaseTarget();
+        //LookAtTarget();
+        //ChaseTarget();
+        ChaseTargetWithNav();
         AttackTarget();
     }
 
@@ -48,11 +55,23 @@ public class Enemy : MonoBehaviour
     {
         if (!targetGo) return;
 
-        if (Vector3.Distance(targetGo.transform.position, transform.position) > stopDist)
+        Vector3 enemyPos = transform.position;
+        Vector3 targetPos = targetGo.transform.position;
+        if (Vector3.Distance(targetPos, enemyPos) > stopDist)
         {
-            Vector3 dir = (targetGo.transform.position - transform.position).normalized;
-            transform.position = transform.position + (dir * moveSpeed * Time.deltaTime);
+            Vector3 dir = (targetPos - enemyPos).normalized;
+            //characterController.SimpleMove(dir * moveSpeed);
         }
+    }
+
+    private void ChaseTargetWithNav()
+    {
+        if (!targetGo) return;
+
+        Vector3 enemyPos = transform.position;
+        Vector3 targetPos = targetGo.transform.position;
+        if (Vector3.Distance(targetPos, enemyPos) > stopDist)
+            agent.SetDestination(targetGo.transform.position);
     }
 
     private void AttackTarget()
@@ -61,7 +80,13 @@ public class Enemy : MonoBehaviour
 
         if (Vector3.Distance(targetGo.transform.position, transform.position) < atkRange)
         {
-            if (weapon) weapon.Use(this.gameObject);
+            if (weaponGun)
+            {
+                if (weaponGun.CheckAvailable())
+                    weaponGun.Use(this.gameObject);
+                else
+                    weaponGun.Reload();
+            }
         }
     }
 
