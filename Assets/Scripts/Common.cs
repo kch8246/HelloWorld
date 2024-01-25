@@ -1,0 +1,1 @@
+public enum EPortalType { Red, Blue }

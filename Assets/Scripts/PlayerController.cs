@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform shoulderTr = null;
     [SerializeField] private Transform weaponHolderTr = null;
     private WeaponGun weaponGun = null;
+    private WeaponPortalGun portalGun = null;
 
     private UIManager uiMng = null;
 
@@ -140,14 +141,46 @@ public class PlayerController : MonoBehaviour
                     uiMng.UpdateBulletCount(weaponGun.BulletCnt);
                 }
             }
+            else if (portalGun != null)
+            {
+                if (portalGun.CheckAvailable())
+                {
+                    portalGun.Use(this.gameObject, EPortalType.Red);
+                    uiMng.UpdateBulletCount(portalGun.BulletCnt);
+                }
+            }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (portalGun != null)
+            {
+                if (portalGun.CheckAvailable())
+                {
+                    portalGun.Use(this.gameObject, EPortalType.Blue);
+                    uiMng.UpdateBulletCount(portalGun.BulletCnt);
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            characterController.enabled = false;
+
+            
+            GetComponent<Rigidbody>().rotation = Quaternion.Euler(10f, 20f, 0f);
+        
+            transform.rotation = Quaternion.Euler(10f, 20f, 0f);
+
+            characterController.enabled = true;
         }
     }
 
     private void OnTriggerEnter(Collider _other)
     {
-        if (_other.CompareTag("Weapon"))
+        if (_other.CompareTag("Weapon") || _other.CompareTag("PortalGun"))
         {
-            if (weaponGun) DropWeapon();
+            if (weaponGun || portalGun) DropWeapon();
             GetWeapon(_other.gameObject);
         }
     }
@@ -160,10 +193,18 @@ public class PlayerController : MonoBehaviour
 
         // 지금은 총 밖에 없어서 이런식으로 처리되지만
         // 무기 종류가 다양해지면 획득한 무기에 따라 처리해야 할 수도 있음.
-        weaponGun = _weaponGo.GetComponent<WeaponGun>();
-        weaponGun.ReloadDoneCallback = ReloadDoneCallback;
-
-        uiMng.UpdateBulletCount(weaponGun.BulletCnt);
+        if (_weaponGo.CompareTag("Weapon"))
+        {
+            weaponGun = _weaponGo.GetComponent<WeaponGun>();
+            weaponGun.ReloadDoneCallback = ReloadDoneCallback;
+            uiMng.UpdateBulletCount(weaponGun.BulletCnt);
+        }
+        else if (_weaponGo.CompareTag("PortalGun"))
+        {
+            portalGun = _weaponGo.GetComponent<WeaponPortalGun>();
+            portalGun.ReloadDoneCallback = ReloadDoneCallback;
+            uiMng.UpdateBulletCount(portalGun.BulletCnt);
+        }
     }
 
     private void ReloadDoneCallback()
@@ -173,9 +214,9 @@ public class PlayerController : MonoBehaviour
 
     private void DropWeapon()
     {
-        if (weaponGun == null) return;
-
-        Transform dropWeaponTr = weaponGun.transform;
+        Transform dropWeaponTr = null;
+        if (weaponGun) dropWeaponTr = weaponGun.transform;
+        else if (portalGun) dropWeaponTr = portalGun.transform;
         dropWeaponTr.SetParent(null);
 
         float angle = Random.Range(0f, 360f);
@@ -184,5 +225,15 @@ public class PlayerController : MonoBehaviour
             transform.position +
             new Vector3(Mathf.Cos(angle) * dist, 1f, Mathf.Sin(angle) * dist);
         dropWeaponTr.position = dropPos;
+
+        weaponGun = null;
+        portalGun = null;
+    }
+
+    public void Warp(Vector3 _pos)
+    {
+        characterController.enabled = false;        
+        transform.position = _pos;
+        characterController.enabled = true;
     }
 }

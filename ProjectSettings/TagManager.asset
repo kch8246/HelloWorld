@@ -8,6 +8,10 @@ TagManager:
   - Weapon
   - Enemy
   - UIManager
+  - PortalRed
+  - PortalBlue
+  - PortalManager
+  - PortalGun
   layers:
   - Default
   - TransparentFX
